@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>오늘의 쓸모없는 조언</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #f6f4ff, #ffeef5);
+      color: #333;
+    }
+
+    .wrapper {
+      max-width: 480px;
+      width: 90%;
+      background: #ffffff;
+      padding: 32px 24px;
+      border-radius: 18px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .advice-box {
+      margin: 20px 0 24px;
+      padding: 24px 18px;
+      background: #f8f5ff;
+      border-radius: 14px;
+      border: 1px dashed #d4c7ff;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #7f6dff;
+      color: #ffffff;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s;
+      box-shadow: 0 6px 16px rgba(127, 109, 255, 0.35);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 9px 22px rgba(127, 109, 255, 0.45);
+      background: #6a58f0;
+    }
+
+    .button:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(127, 109, 255, 0.3);
+    }
+
+    .footer-text {
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1 class="title">오늘의 쓸모없는 조언</h1>
+    <p class="subtitle">인생에 큰 도움은 안 되지만, 살짝 웃을 수는 있습니다.</p>
+
+    <div class="advice-box" id="adviceBox">
+      버튼을 눌러 오늘의 쓸모없는 조언을 받아보세요.
+    </div>
+
+    <button class="button" id="newAdviceButton">
+      조언 새로 받기
+    </button>
+
+    <p class="footer-text">
+      ※ 과학적 근거, 논리, 책임감 모두 없음
+    </p>
+  </div>
+
+  <script>
+    const advices = [
+      "물은 마시면 좋습니다. 안 마시면 안 좋습니다.",
+      "오늘 할 일을 내일로 미루면, 내일 할 일이 두 개가 됩니다.",
+      "고민이 많으면, 잠깐 뭐라도 드세요. 고민은 그대로지만 배는 든든해집니다.",
+      "공부하기 싫으면, 일단 책상에 앉아 있기라도 해보세요. 앉아 있는 것도 위대한 진전입니다.",
+      "다 괜찮을 겁니다. 언젠가는. 아마도. 대충.",
+      "하기 싫은 일을 안 하면 기분이 좋아집니다. 대신 미래의 내가 고생합니다.",
+      "오늘 하루도 최선을 다하지 않아도 괜찮습니다. 어제도 안 했잖아요.",
+      "슬프면 울어도 됩니다. 근데 내일도 슬플 수도 있습니다.",
+      "운동을 시작하면 힘들고, 안 하면 마음이 찝찝합니다. 선택하세요.",
+      "할 일을 미루는 재능이 있다면, 그것도 재능입니다. 자랑은 말고요.",
+      "오늘의 목표: 살아남기. 그 이상은 덤입니다.",
+      "휴대폰 배터리보다 내 체력이 먼저 닳습니다.",
+      "인생은 마라톤이라는데, 난 이미 숨이 찹니다.",
+      "아무 생각하지 말라고 해서 정말로 아무 생각하지 않으면, 그게 또 생각입니다.",
+      "지금 하는 고민의 80%는 나중에 보면 '아, 쓸데없었네' 쪽에 들어갈 확률이 높습니다.",
+      "그냥 괜찮지 않아도 괜찮습니다. 문장 자체가 쓸데없죠.",
+      "오늘도 할 수 있는 만큼만 합시다. 그 '만큼'이 매우 작아도 인정합니다.",
+      "지금 눕고 싶다는 생각이 들었다면, 이미 마음은 침대에 가 있습니다.",
+      "오늘 힘들었다면 최소한 내일 일찍 일어나지는 말아봅시다.",
+      "가끔은 아무것도 안 하기가, 제일 어려운 일입니다."
+    ];
+
+    const adviceBox = document.getElementById("adviceBox");
+    const newAdviceButton = document.getElementById("newAdviceButton");
+
+    function getRandomAdvice() {
+      const index = Math.floor(Math.random() * advices.length);
+      return advices[index];
+    }
+
+    function showNewAdvice() {
+      const advice = getRandomAdvice();
+      adviceBox.textContent = advice;
+    }
+
+    newAdviceButton.addEventListener("click", showNewAdvice);
+
+    // 페이지 들어오자마자 한 번 자동으로 보여주고 싶으면 이 줄 유지
+    // 원하지 않으면 아래 한 줄 주석 처리
+    showNewAdvice();
+  </script>
+</body>
+</html>
